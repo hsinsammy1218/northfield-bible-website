@@ -267,8 +267,8 @@ main {
 .hero {
   position: relative;
   background:
-    linear-gradient(180deg, rgba(28, 22, 18, 0.86) 0%, rgba(28, 22, 18, 0.82) 50%, rgba(28, 22, 18, 0.94) 100%),
-    url("/images/header-banner.png") center 12% / cover no-repeat;
+    linear-gradient(180deg, rgba(28, 22, 18, 0.55) 0%, rgba(28, 22, 18, 0.45) 45%, rgba(28, 22, 18, 0.78) 100%),
+    url("/images/hero-bg.jpg") center / cover no-repeat;
   color: var(--color-paper);
   padding: clamp(3rem, 8vw, 5.5rem) 0;
   overflow: hidden;
