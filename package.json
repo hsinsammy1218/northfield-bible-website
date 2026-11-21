@@ -1,0 +1,16 @@
+{
+  "name": "northfield_bible_website",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "import:archives": "node scripts/import-archives.mjs"
+  },
+  "dependencies": {
+    "astro": "5.18.2"
+  }
+}

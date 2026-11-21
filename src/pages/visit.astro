@@ -1,0 +1,134 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+
+const description =
+  "Plan your visit to Northfield Bible Church in Northfield, CT. Sunday worship at 10:00 AM. Address, phone, directions, and weekly schedule.";
+---
+
+<BaseLayout title="Visit" description={description} canonicalPath="/visit">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h1 style="margin:0 0 0.75rem; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.75rem);">
+          Plan your visit
+        </h1>
+        <p>
+          Our church family would love the opportunity to meet you and to worship with you. Come
+          visit one of our services and see what God will do in your life.
+        </p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 2.5rem;">
+        <article class="card">
+          <span class="meta">When</span>
+          <h2 style="font-family: var(--font-serif); font-size: 1.35rem; margin: 0 0 0.5rem;">
+            Sunday Worship · 10:00 AM
+          </h2>
+          <p>Doctrines Class meets at 9:00 AM before the worship service.</p>
+        </article>
+        <article class="card">
+          <span class="meta">Where</span>
+          <h2 style="font-family: var(--font-serif); font-size: 1.35rem; margin: 0 0 0.5rem;">
+            {site.address.full}
+          </h2>
+          <p>
+            <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+          </p>
+        </article>
+        <article class="card">
+          <span class="meta">Call us</span>
+          <h2 style="font-family: var(--font-serif); font-size: 1.35rem; margin: 0 0 0.5rem;">
+            <a href={site.phoneHref}>{site.phone}</a>
+          </h2>
+          <p>Leave a message if we are not in and we will get right back to you.</p>
+        </article>
+      </div>
+
+      <div class="split">
+        <div>
+          <div class="section-header">
+            <h2>Weekly gatherings</h2>
+            <p>
+              Our fellowship is Christ centered and our standard is the inspired word of God.
+              Everyone is welcome.
+            </p>
+          </div>
+          <div style="display: grid; gap: 1rem;">
+            {
+              site.schedule.map((item) => (
+                <article class="card">
+                  <span class="meta">
+                    {item.day} · {item.time}
+                  </span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <img
+            src="/images/church.jpg"
+            alt="Northfield Bible Church building"
+            width="356"
+            height="474"
+            loading="lazy"
+            decoding="async"
+          />
+          <p style="margin-top: 1rem; color: var(--color-muted); font-size: 1rem;">
+            Keep an eye on our weekly gatherings as we plan new and exciting events. For more
+            information, call the church office at {site.phone}.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="contact">
+    <div class="container split">
+      <div>
+        <div class="section-header">
+          <h2>Contact us</h2>
+          <p>
+            Please call the church office and we will respond to your inquiry within 48 hours.
+          </p>
+        </div>
+        <ul class="contact-list">
+          <li>
+            <strong>Phone</strong>
+            <a href={site.phoneHref}>{site.phone}</a>
+          </li>
+          <li>
+            <strong>Address</strong>
+            <span>{site.address.full}</span>
+          </li>
+          <li>
+            <strong>Directions</strong>
+            <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">Google Maps</a>
+          </li>
+          <li>
+            <strong>Sermon video</strong>
+            <a href={site.youtube} target="_blank" rel="noopener noreferrer">YouTube channel</a>
+          </li>
+        </ul>
+        <div class="hero-actions" style="margin-top: 1.5rem;">
+          <a class="btn btn-primary" href={site.phoneHref}>Call the office</a>
+          <a class="btn btn-secondary" href="/sermons">Browse sermons</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>What to expect</h3>
+        <p style="margin-bottom: 1rem;">
+          We preach the word of God, unashamedly. The messages from our pulpit are designed to
+          teach and comfort believing Christians and to stir the hearts of the unsaved.
+        </p>
+        <p>
+          Dozens of Scripture references are given in each message so there can be no
+          misunderstanding of what God says.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

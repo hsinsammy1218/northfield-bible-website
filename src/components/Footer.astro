@@ -1,0 +1,41 @@
+---
+import { nav, site } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-brand">{site.name}</p>
+      <p class="footer-tagline">{site.tagline}</p>
+      <p>
+        {site.address.full}<br />
+        <a href={site.phoneHref}>{site.phone}</a>
+      </p>
+    </div>
+
+    <div>
+      <p><strong>Explore</strong></p>
+      <nav class="footer-nav" aria-label="Footer">
+        {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+    </div>
+
+    <div>
+      <p><strong>Join us</strong></p>
+      <p>Sunday Worship · 10:00 AM</p>
+      <p>
+        <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">Get directions</a>
+        ·
+        <a href={site.youtube} target="_blank" rel="noopener noreferrer">YouTube</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <p class="footer-copy">
+      Content copyright {year}. Northfield Bible Church. All rights reserved.
+    </p>
+  </div>
+</footer>

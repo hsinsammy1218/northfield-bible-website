@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RecordingArchive from "../components/RecordingArchive.astro";
+import { site } from "../data/site";
+import sermons from "../data/sermons.json";
+
+const description =
+  "Sermon archives from Northfield Bible Church. Listen to audio messages and watch video when available.";
+---
+
+<BaseLayout title="Sermons" description={description} canonicalPath="/sermons">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h1 style="margin:0 0 0.75rem; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.75rem);">
+          Sermon archives
+        </h1>
+        <p>
+          Northfield Bible Church is dedicated to preaching the word of God, unashamedly. Sit back
+          in your favorite chair and let the Scriptures fill your heart.
+        </p>
+        <p style="margin-top: 0.75rem;">
+          <a href={site.youtube} target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+        </p>
+      </div>
+
+      <RecordingArchive
+        items={sermons}
+        searchLabel="Search sermons by title"
+        emptyMessage="No sermons match your search. Try another title or choose a different year."
+        idPrefix="sermons"
+      />
+    </div>
+  </section>
+</BaseLayout>

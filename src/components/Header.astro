@@ -1,0 +1,70 @@
+---
+import { nav, site } from "../data/site";
+
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${site.name} home`}>
+      <span class="brand-name">{site.name}</span>
+      <span class="brand-tagline">{site.tagline}</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      {
+        nav.map((item) => {
+          const itemPath = item.href.split("#")[0] || "/";
+          const isHashOnlyTarget = item.href.includes("#");
+          const current =
+            !isHashOnlyTarget &&
+            (itemPath === pathname || (itemPath !== "/" && pathname.startsWith(itemPath)));
+          return (
+            <a href={item.href} aria-current={current ? "page" : undefined}>
+              {item.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <div class="header-actions">
+      <a class="header-phone" href={site.phoneHref}>{site.phone}</a>
+      <a class="btn btn-primary" href="/visit">Plan a visit</a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-menu-toggle
+      >
+        Menu
+      </button>
+    </div>
+  </div>
+
+  <nav class="container nav-mobile" id="mobile-nav" aria-label="Mobile" data-mobile-nav>
+    {
+      nav.map((item) => (
+        <a href={item.href}>
+          {item.label}
+        </a>
+      ))
+    }
+    <a class="btn btn-primary" href="/visit">Plan a visit</a>
+    <a href={site.phoneHref}>Call {site.phone}</a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const panel = document.querySelector("[data-mobile-nav]");
+
+  if (toggle instanceof HTMLButtonElement && panel instanceof HTMLElement) {
+    toggle.addEventListener("click", () => {
+      const open = panel.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.textContent = open ? "Close" : "Menu";
+    });
+  }
+</script>

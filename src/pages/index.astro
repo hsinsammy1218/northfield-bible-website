@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+import sermons from "../data/sermons.json";
+
+const latest = sermons[0];
+const description =
+  "Independent Bible church in Northfield, CT. Sunday worship at 10:00 AM. A place to worship. A place to belong.";
+---
+
+<BaseLayout title={site.name} description={description} canonicalPath="/">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="eyebrow">Northfield, Connecticut</p>
+        <h1>A place to worship. A place to belong.</h1>
+        <p class="hero-lead">
+          We are an independent church that believes the Bible is God’s final word on all matters
+          of life. Our church family would love the opportunity to meet you and worship with you.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/visit">Plan a visit</a>
+          <a class="btn btn-ghost" href="/sermons">Listen to a sermon</a>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <p><strong>Sunday Worship</strong><br />10:00 AM</p>
+        <p><strong>Address</strong><br />{site.address.full}</p>
+        <p>
+          <strong>Phone</strong><br />
+          <a href={site.phoneHref} style="color: var(--color-gold-soft);">{site.phone}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>This week at Northfield</h2>
+        <p>Join us for worship, doctrine, and midweek study in God’s Word.</p>
+      </div>
+      <div class="grid-3">
+        {
+          site.schedule.slice(0, 3).map((item) => (
+            <article class="card">
+              <span class="meta">
+                {item.day} · {item.time}
+              </span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container split">
+      <div class="prose">
+        <div class="section-header">
+          <h2>Bible based. Conservative. Soundly fundamental.</h2>
+        </div>
+        <p>
+          We are an independent church that believes the Bible is God’s final word on all matters
+          of life. Our church family believes that the word of God is divinely inspired in its
+          entirety. And we use Scripture as the standard for our worship as well as the standard by
+          which we live our lives.
+        </p>
+        <p>
+          So if you are looking for a church that is Bible based, conservative, and soundly
+          fundamental in its Bible teaching and worship, you have come to the right worship house.
+        </p>
+        <p>
+          Or if you are tired of watered down sermons, liberal churches, and non-biblical
+          traditions that have nothing to do with God, come worship with us. Our Sunday worship
+          starts at 10:00 AM.
+        </p>
+        <blockquote class="scripture">
+          “I am the door; if anyone enters through Me, he will be saved, and will go in and out and
+          find pasture.”
+          <cite>John 10:9</cite>
+        </blockquote>
+        <p style="margin-top: 1rem; color: var(--color-muted); font-size: 1rem;">
+          2 Timothy 3:16
+        </p>
+      </div>
+      <div>
+        <img
+          src="/images/church.jpg"
+          alt="Northfield Bible Church building"
+          width="356"
+          height="474"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  {
+    latest && (
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Latest message</h2>
+            <p>Hear the Word preached from our pulpit.</p>
+          </div>
+          <article class="card">
+            <span class="meta">{latest.date}</span>
+            <h3>{latest.title}</h3>
+            <p style="margin: 0.75rem 0 1.25rem;">
+              Messages from our pulpit are designed to teach and comfort believing Christians and
+              to stir the hearts of the unsaved.
+            </p>
+            <div class="hero-actions" style="margin: 0;">
+              {latest.audioUrl && (
+                <a class="btn btn-primary" href={latest.audioUrl} target="_blank" rel="noopener noreferrer">
+                  Listen to audio
+                </a>
+              )}
+              {latest.videoUrl && (
+                <a class="btn btn-secondary" href={latest.videoUrl} target="_blank" rel="noopener noreferrer">
+                  Watch on YouTube
+                </a>
+              )}
+              <a class="btn btn-secondary" href="/sermons">
+                Browse sermon archives
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

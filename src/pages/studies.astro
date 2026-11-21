@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RecordingArchive from "../components/RecordingArchive.astro";
+import { site } from "../data/site";
+import studies from "../data/studies.json";
+
+const description =
+  "Bible studies at Northfield Bible Church: Sunday Doctrines Class, Wednesday Bible Study, and Thursday Women's Study, with online recordings.";
+---
+
+<BaseLayout title="Studies" description={description} canonicalPath="/studies">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h1 style="margin:0 0 0.75rem; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.75rem);">
+          Bible studies
+        </h1>
+        <p>
+          Online recordings of our studies and classes. Everyone is welcome at any of our weekly
+          gatherings.
+        </p>
+      </div>
+
+      <div class="grid-auto" style="margin-bottom: 2.5rem;">
+        {
+          site.schedule.map((item) => (
+            <article class="card">
+              <span class="meta">
+                {item.day} · {item.time}
+              </span>
+              <h2 style="font-family: var(--font-serif); font-size: 1.2rem; margin: 0 0 0.5rem;">
+                {item.title}
+              </h2>
+              <p>{item.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="doctrines">
+    <div class="container">
+      <div class="section-header">
+        <h2>Doctrines Class recordings</h2>
+        <p>Sunday morning class at 9:00 AM, before worship.</p>
+      </div>
+      <RecordingArchive
+        items={studies.doctrines}
+        searchLabel="Search doctrines recordings"
+        emptyMessage="No doctrines recordings match your search."
+        idPrefix="doctrines"
+      />
+    </div>
+  </section>
+
+  <section class="section" id="wednesday">
+    <div class="container">
+      <div class="section-header">
+        <h2>Wednesday Study recordings</h2>
+        <p>Mid-week Bible study at 7:00 PM.</p>
+      </div>
+      <RecordingArchive
+        items={studies.wednesday}
+        searchLabel="Search Wednesday study recordings"
+        emptyMessage="No Wednesday recordings match your search."
+        idPrefix="wednesday"
+      />
+    </div>
+  </section>
+</BaseLayout>
