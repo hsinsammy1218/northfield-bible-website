@@ -4,17 +4,27 @@ import RecordingArchive from "../components/RecordingArchive.astro";
 import { site } from "../data/site";
 import sermons from "../data/sermons.json";
 
+const latest = sermons[0];
 const description =
   "Sermon archives from Northfield Bible Church. Listen to audio messages and watch video when available.";
+
+function formatDate(iso: string | null) {
+  if (!iso) return "";
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
 ---
 
 <BaseLayout title="Sermons" description={description} canonicalPath="/sermons">
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h1 style="margin:0 0 0.75rem; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.75rem);">
-          Sermon archives
-        </h1>
+      <div class="section-header reveal">
+        <h1 class="page-title">Sermon archives</h1>
         <p>
           Northfield Bible Church is dedicated to preaching the word of God, unashamedly. Sit back
           in your favorite chair and let the Scriptures fill your heart.
@@ -24,12 +34,58 @@ const description =
         </p>
       </div>
 
-      <RecordingArchive
-        items={sermons}
-        searchLabel="Search sermons by title"
-        emptyMessage="No sermons match your search. Try another title or choose a different year."
-        idPrefix="sermons"
-      />
+      {
+        latest && (
+          <article class="featured-sermon reveal" style="margin-bottom: 2.5rem;">
+            <div>
+              <span class="meta">Latest message · {formatDate(latest.date)}</span>
+              <h2 style="margin: 0 0 0.75rem; font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2rem);">
+                {latest.title}
+              </h2>
+              <p>
+                Messages from our pulpit are designed to teach and comfort believing Christians and
+                to stir the hearts of the unsaved.
+              </p>
+              <div class="hero-actions">
+                {latest.audioUrl && (
+                  <a
+                    class="btn btn-primary"
+                    href={latest.audioUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Listen to audio
+                  </a>
+                )}
+                {latest.videoUrl && (
+                  <a
+                    class="btn btn-secondary"
+                    href={latest.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Watch video
+                  </a>
+                )}
+              </div>
+            </div>
+            <div>
+              <p style="margin: 0; color: var(--color-ink-soft);">
+                Search below by title or year to find earlier messages from 2014 to today.
+              </p>
+            </div>
+          </article>
+        )
+      }
+
+      <div class="reveal">
+        <RecordingArchive
+          items={sermons}
+          searchLabel="Search sermons by title"
+          emptyMessage="No sermons match your search. Try another title or choose a different year."
+          idPrefix="sermons"
+        />
+      </div>
     </div>
   </section>
 </BaseLayout>

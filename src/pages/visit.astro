@@ -7,87 +7,127 @@ const description =
 ---
 
 <BaseLayout title="Visit" description={description} canonicalPath="/visit">
+  <section class="hero hero-animate" style="min-height: auto; padding-top: 4.5rem; padding-bottom: 3rem;">
+    <div class="container hero-inner">
+      <p class="hero-tagline" style="margin-bottom: 0.75rem;">You’re welcome here</p>
+      <h1 class="hero-brand" style="max-width: 14ch;">Plan your visit</h1>
+      <p class="hero-lead">
+        Our church family would love the opportunity to meet you and to worship with you. Come
+        visit one of our services and see what God will do in your life.
+      </p>
+      <p class="hero-sunday">
+        <strong>Sunday Worship</strong>
+        <span>10:00 AM</span>
+        <span aria-hidden="true">·</span>
+        <span>Doctrines Class 9:00 AM</span>
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={site.mapsUrl} target="_blank" rel="noopener noreferrer">
+          Get directions
+        </a>
+        <a class="btn btn-ghost" href={site.phoneHref}>Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="visit-bar">
+    <div class="container visit-bar-inner">
+      <span>{site.address.full}</span>
+      <span>
+        <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">Google Maps</a>
+        <span aria-hidden="true"> · </span>
+        <a href="/sermons">Hear a sermon first</a>
+      </span>
+    </div>
+  </div>
+
   <section class="section">
-    <div class="container">
+    <div class="container reveal">
       <div class="section-header">
-        <h1 style="margin:0 0 0.75rem; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.75rem);">
-          Plan your visit
-        </h1>
+        <h2>Weekly gatherings</h2>
         <p>
-          Our church family would love the opportunity to meet you and to worship with you. Come
-          visit one of our services and see what God will do in your life.
+          Our fellowship is Christ centered and our standard is the inspired word of God. Everyone
+          is welcome.
         </p>
       </div>
-
-      <div class="grid-3" style="margin-bottom: 2.5rem;">
-        <article class="card">
-          <span class="meta">When</span>
-          <h2 style="font-family: var(--font-serif); font-size: 1.35rem; margin: 0 0 0.5rem;">
-            Sunday Worship · 10:00 AM
-          </h2>
-          <p>Doctrines Class meets at 9:00 AM before the worship service.</p>
-        </article>
-        <article class="card">
-          <span class="meta">Where</span>
-          <h2 style="font-family: var(--font-serif); font-size: 1.35rem; margin: 0 0 0.5rem;">
-            {site.address.full}
-          </h2>
-          <p>
-            <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
-          </p>
-        </article>
-        <article class="card">
-          <span class="meta">Call us</span>
-          <h2 style="font-family: var(--font-serif); font-size: 1.35rem; margin: 0 0 0.5rem;">
-            <a href={site.phoneHref}>{site.phone}</a>
-          </h2>
-          <p>Leave a message if we are not in and we will get right back to you.</p>
-        </article>
-      </div>
-
       <div class="split">
-        <div>
-          <div class="section-header">
-            <h2>Weekly gatherings</h2>
-            <p>
-              Our fellowship is Christ centered and our standard is the inspired word of God.
-              Everyone is welcome.
-            </p>
-          </div>
-          <div style="display: grid; gap: 1rem;">
-            {
-              site.schedule.map((item) => (
-                <article class="card">
-                  <span class="meta">
-                    {item.day} · {item.time}
-                  </span>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </article>
-              ))
-            }
-          </div>
-        </div>
-        <div>
+        <ul class="schedule-list">
+          {
+            site.schedule.map((item) => (
+              <li>
+                <span class="meta">
+                  {item.day} · {item.time}
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="split-media">
           <img
             src="/images/church.jpg"
             alt="Northfield Bible Church building"
-            width="356"
-            height="474"
+            width="712"
+            height="948"
             loading="lazy"
             decoding="async"
           />
           <p style="margin-top: 1rem; color: var(--color-muted); font-size: 1rem;">
-            Keep an eye on our weekly gatherings as we plan new and exciting events. For more
-            information, call the church office at {site.phone}.
+            For more information on upcoming gatherings, call the church office at {site.phone}.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt" id="contact">
-    <div class="container split">
+  <section class="section section-alt">
+    <div class="container reveal">
+      <div class="section-header">
+        <h2>What to expect</h2>
+        <p>Answers to the questions visitors often wonder about.</p>
+      </div>
+      <ul class="expect-list">
+        <li>
+          <strong>Bible preaching</strong>
+          <p>
+            We preach the word of God, unashamedly. Messages from our pulpit are designed to teach
+            and comfort believing Christians and to stir the hearts of the unsaved.
+          </p>
+        </li>
+        <li>
+          <strong>Scripture at the center</strong>
+          <p>
+            Dozens of Scripture references are given in each message so there can be no
+            misunderstanding of what God says.
+          </p>
+        </li>
+        <li>
+          <strong>Everyone is welcome</strong>
+          <p>
+            Our Sunday Doctrines Class, Wednesday Bible Study, and Thursday Women’s Study are open
+            to all who want to grow in God’s Word.
+          </p>
+        </li>
+        <li>
+          <strong>Hear us first</strong>
+          <p>
+            Listen to a recent sermon or watch on YouTube before you come, then join us in person
+            on Sunday.
+          </p>
+        </li>
+      </ul>
+      <div class="hero-actions" style="margin-top: 2rem;">
+        <a class="btn btn-primary" href="/sermons">Browse sermons</a>
+        <a class="btn btn-secondary" href={site.youtube} target="_blank" rel="noopener noreferrer">
+          YouTube channel
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container split reveal">
       <div>
         <div class="section-header">
           <h2>Contact us</h2>
@@ -115,19 +155,17 @@ const description =
         </ul>
         <div class="hero-actions" style="margin-top: 1.5rem;">
           <a class="btn btn-primary" href={site.phoneHref}>Call the office</a>
-          <a class="btn btn-secondary" href="/sermons">Browse sermons</a>
         </div>
       </div>
-      <div class="card">
-        <h3>What to expect</h3>
-        <p style="margin-bottom: 1rem;">
-          We preach the word of God, unashamedly. The messages from our pulpit are designed to
-          teach and comfort believing Christians and to stir the hearts of the unsaved.
-        </p>
-        <p>
-          Dozens of Scripture references are given in each message so there can be no
-          misunderstanding of what God says.
-        </p>
+      <div class="featured-sermon" style="align-content: start;">
+        <div>
+          <span class="meta">See you Sunday</span>
+          <h3>Come worship with us</h3>
+          <p>
+            Sunday Worship starts at 10:00 AM at {site.address.full}. Leave a message if we are not
+            in the office and we will get right back to you.
+          </p>
+        </div>
       </div>
     </div>
   </section>

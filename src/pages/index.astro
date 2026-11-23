@@ -4,60 +4,103 @@ import { site } from "../data/site";
 import sermons from "../data/sermons.json";
 
 const latest = sermons[0];
+const recent = sermons.slice(1, 4);
+
+function formatDate(iso: string | null) {
+  if (!iso) return "";
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 const description =
   "Independent Bible church in Northfield, CT. Sunday worship at 10:00 AM. A place to worship. A place to belong.";
 ---
 
 <BaseLayout title={site.name} description={description} canonicalPath="/">
-  <section class="hero">
+  <section class="hero hero-animate">
     <div class="container hero-inner">
-      <div>
-        <p class="eyebrow">Northfield, Connecticut</p>
-        <h1>A place to worship. A place to belong.</h1>
-        <p class="hero-lead">
-          We are an independent church that believes the Bible is God’s final word on all matters
-          of life. Our church family would love the opportunity to meet you and worship with you.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/visit">Plan a visit</a>
-          <a class="btn btn-ghost" href="/sermons">Listen to a sermon</a>
-        </div>
+      <h1 class="hero-brand">{site.name}</h1>
+      <p class="hero-tagline">{site.tagline}</p>
+      <p class="hero-lead">
+        An independent church where God’s Word is the standard for worship and for life. Come meet
+        our church family this Sunday.
+      </p>
+      <p class="hero-sunday">
+        <strong>Sunday Worship</strong>
+        <span>10:00 AM</span>
+        <span aria-hidden="true">·</span>
+        <span>Northfield, CT</span>
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/visit">Plan a visit</a>
+        <a class="btn btn-ghost" href="/sermons">Listen to a sermon</a>
       </div>
-      <div class="hero-meta">
-        <p><strong>Sunday Worship</strong><br />10:00 AM</p>
-        <p><strong>Address</strong><br />{site.address.full}</p>
-        <p>
-          <strong>Phone</strong><br />
-          <a href={site.phoneHref} style="color: var(--color-gold-soft);">{site.phone}</a>
-        </p>
+    </div>
+  </section>
+
+  <div class="visit-bar">
+    <div class="container visit-bar-inner">
+      <span>{site.address.full}</span>
+      <span>
+        <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">Directions</a>
+        <span aria-hidden="true"> · </span>
+        <a href={site.phoneHref}>Call {site.phone}</a>
+      </span>
+    </div>
+  </div>
+
+  <section class="section section-dark">
+    <div class="container reveal">
+      <div class="section-header">
+        <h2>New here?</h2>
+        <p>Start with one clear next step.</p>
+      </div>
+      <div class="paths">
+        <a class="path-item" href="/visit">
+          <strong>Plan your visit</strong>
+          <span>Times, location, and what to expect</span>
+        </a>
+        <a class="path-item" href="/sermons">
+          <strong>Hear a message</strong>
+          <span>Sermon audio and video archives</span>
+        </a>
+        <a class="path-item" href="/studies">
+          <strong>Join a study</strong>
+          <span>Sunday doctrines and midweek Bible study</span>
+        </a>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
+    <div class="container reveal">
       <div class="section-header">
-        <h2>This week at Northfield</h2>
-        <p>Join us for worship, doctrine, and midweek study in God’s Word.</p>
+        <h2>This week</h2>
+        <p>Everyone is welcome at any of our gatherings.</p>
       </div>
-      <div class="grid-3">
+      <ul class="schedule-list">
         {
-          site.schedule.slice(0, 3).map((item) => (
-            <article class="card">
+          site.schedule.map((item) => (
+            <li>
               <span class="meta">
                 {item.day} · {item.time}
               </span>
               <h3>{item.title}</h3>
               <p>{item.description}</p>
-            </article>
+            </li>
           ))
         }
-      </div>
+      </ul>
     </div>
   </section>
 
   <section class="section section-alt">
-    <div class="container split">
+    <div class="container split reveal">
       <div class="prose">
         <div class="section-header">
           <h2>Bible based. Conservative. Soundly fundamental.</h2>
@@ -74,25 +117,21 @@ const description =
         </p>
         <p>
           Or if you are tired of watered down sermons, liberal churches, and non-biblical
-          traditions that have nothing to do with God, come worship with us. Our Sunday worship
-          starts at 10:00 AM.
+          traditions that have nothing to do with God, come worship with us.
         </p>
         <blockquote class="scripture">
           “I am the door; if anyone enters through Me, he will be saved, and will go in and out and
           find pasture.”
           <cite>John 10:9</cite>
         </blockquote>
-        <p style="margin-top: 1rem; color: var(--color-muted); font-size: 1rem;">
-          2 Timothy 3:16
-        </p>
       </div>
-      <div>
+      <div class="split-media">
         <img
           src="/images/church.jpg"
           alt="Northfield Bible Church building"
-          width="356"
-          height="474"
-          loading="eager"
+          width="712"
+          height="948"
+          loading="lazy"
           decoding="async"
         />
       </div>
@@ -102,32 +141,57 @@ const description =
   {
     latest && (
       <section class="section">
-        <div class="container">
+        <div class="container reveal">
           <div class="section-header">
             <h2>Latest message</h2>
-            <p>Hear the Word preached from our pulpit.</p>
+            <p>Hear the Word preached from our pulpit before you visit.</p>
           </div>
-          <article class="card">
-            <span class="meta">{latest.date}</span>
-            <h3>{latest.title}</h3>
-            <p style="margin: 0.75rem 0 1.25rem;">
-              Messages from our pulpit are designed to teach and comfort believing Christians and
-              to stir the hearts of the unsaved.
-            </p>
-            <div class="hero-actions" style="margin: 0;">
-              {latest.audioUrl && (
-                <a class="btn btn-primary" href={latest.audioUrl} target="_blank" rel="noopener noreferrer">
-                  Listen to audio
-                </a>
-              )}
-              {latest.videoUrl && (
-                <a class="btn btn-secondary" href={latest.videoUrl} target="_blank" rel="noopener noreferrer">
-                  Watch on YouTube
-                </a>
-              )}
-              <a class="btn btn-secondary" href="/sermons">
-                Browse sermon archives
-              </a>
+          <article class="featured-sermon">
+            <div>
+              <span class="meta">{formatDate(latest.date)}</span>
+              <h3>{latest.title}</h3>
+              <p>
+                Messages from our pulpit are designed to teach and comfort believing Christians and
+                to stir the hearts of the unsaved.
+              </p>
+              <div class="hero-actions">
+                {latest.audioUrl && (
+                  <a
+                    class="btn btn-primary"
+                    href={latest.audioUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Listen to audio
+                  </a>
+                )}
+                {latest.videoUrl && (
+                  <a
+                    class="btn btn-secondary"
+                    href={latest.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Watch on YouTube
+                  </a>
+                )}
+              </div>
+            </div>
+            <div>
+              <p style="margin: 0 0 0.75rem; font-weight: 700;">Recent messages</p>
+              <ul class="recent-list">
+                {recent.map((item) => (
+                  <li>
+                    <a href={item.audioUrl || item.videoUrl || "/sermons"}>
+                      <strong>{item.title}</strong>
+                      <span>{formatDate(item.date)}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p style="margin: 1rem 0 0;">
+                <a href="/sermons">Browse the full sermon archive →</a>
+              </p>
             </div>
           </article>
         </div>

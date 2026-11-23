@@ -11,31 +11,27 @@ const description =
 <BaseLayout title="Studies" description={description} canonicalPath="/studies">
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h1 style="margin:0 0 0.75rem; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.75rem);">
-          Bible studies
-        </h1>
+      <div class="section-header reveal">
+        <h1 class="page-title">Bible studies</h1>
         <p>
           Online recordings of our studies and classes. Everyone is welcome at any of our weekly
           gatherings.
         </p>
       </div>
 
-      <div class="grid-auto" style="margin-bottom: 2.5rem;">
+      <ul class="schedule-list reveal" style="margin-bottom: 1rem;">
         {
           site.schedule.map((item) => (
-            <article class="card">
+            <li>
               <span class="meta">
                 {item.day} · {item.time}
               </span>
-              <h2 style="font-family: var(--font-serif); font-size: 1.2rem; margin: 0 0 0.5rem;">
-                {item.title}
-              </h2>
+              <h2 style="margin:0; font-family: var(--font-serif); font-size: 1.25rem;">{item.title}</h2>
               <p>{item.description}</p>
-            </article>
+            </li>
           ))
         }
-      </div>
+      </ul>
     </div>
   </section>
 
